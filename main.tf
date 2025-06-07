@@ -1,19 +1,14 @@
-data "aws_availability_zones" "available" {}
-
-data "aws_ssm_parameter" "amazonlinux_2023" {
-  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64" # x86_64
-}
 
 data "aws_vpc" "default" {
   default = true
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ssm_parameter.amazonlinux_2023.value
+  ami           = "ami-06098fd00463352b6"
   instance_type = var.instance_type
 
   vpc_security_group_ids = [aws_security_group.web.id]
-  
+
   tags = {
     Name = "HelloWorld"
   }
